@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Cold Caller</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       SIDEBAR NAV
+  ══════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+      </div>
+      <span class="logo-text">CallAI</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-btn" data-tab="caller">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.5 19.79 19.79 0 01.46 1.86 2 2 0 012.42 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Caller
+      </button>
+      <button class="nav-btn" data-tab="prospects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Prospects
+      </button>
+      <button class="nav-btn" data-tab="objections">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Objections
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="ai-badge">
+        <span class="ai-dot"></span>
+        AI Connected
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ── DASHBOARD TAB ── -->
+    <section class="tab-content active" id="tab-dashboard">
+      <div class="page-header">
+        <h1>Dashboard</h1>
+        <p>Your cold calling performance overview</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.5"/></svg></div>
+          <div class="stat-info">
+            <span class="stat-label">Total Calls</span>
+            <span class="stat-value" id="ds-total">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="stat-info">
+            <span class="stat-label">Interested</span>
+            <span class="stat-value" id="ds-interested">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="stat-info">
+            <span class="stat-label">Callbacks</span>
+            <span class="stat-value" id="ds-callback">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div class="stat-info">
+            <span class="stat-label">Conversion</span>
+            <span class="stat-value" id="ds-rate">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent call log table -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Recent Calls</h2>
+          <button class="btn-ghost btn-sm" onclick="exportCSV()">Export CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table class="call-table">
+            <thead>
+              <tr>
+                <th>Prospect</th>
+                <th>Company</th>
+                <th>Time</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="call-log-tbody">
+              <tr><td colspan="6" class="empty-row">No calls yet. Start calling from the Caller tab.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CALLER TAB ── -->
+    <section class="tab-content" id="tab-caller">
+      <div class="page-header">
+        <h1>AI Caller</h1>
+        <p>Generate scripts and manage live calls</p>
+      </div>
+
+      <div class="caller-grid">
+
+        <!-- Left: Prospect form -->
+        <div class="card">
+          <div class="card-header"><h2>Prospect Details</h2></div>
+          <div class="form-body">
+            <div class="form-group">
+              <label>Prospect Name *</label>
+              <input type="text" id="c-name" placeholder="Ahmad Hassan" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Company</label>
+                <input type="text" id="c-company" placeholder="TechCorp Pvt Ltd" />
+              </div>
+              <div class="form-group">
+                <label>Role / Title</label>
+                <input type="text" id="c-role" placeholder="CEO, Marketing Head" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Industry</label>
+              <select id="c-industry">
+                <option value="">Select industry</option>
+                <option>SaaS / Tech</option>
+                <option>E-commerce</option>
+                <option>Real Estate</option>
+                <option>Healthcare</option>
+                <option>Finance</option>
+                <option>Education</option>
+                <option>Manufacturing</option>
+                <option>Retail</option>
+                <option>Consulting</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>What You Are Offering *</label>
+              <textarea id="c-offering" rows="3" placeholder="e.g. AI automation tool that saves 10+ hours/week for sales teams..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="c-phone" placeholder="+92 300 1234567" />
+            </div>
+            <button class="btn-primary w-full" id="gen-btn" onclick="generateScript()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Generate Script
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Script + call controls -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Generated Script</h2>
+            <div class="header-actions" id="script-actions" style="display:none">
+              <button class="btn-ghost btn-sm" onclick="copyScript()">Copy</button>
+              <button class="btn-ghost btn-sm" onclick="printScript()">Print</button>
+            </div>
+          </div>
+          <div class="script-output" id="script-output">
+            <div class="script-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <p>Your personalized script will appear here</p>
+            </div>
+          </div>
+
+          <!-- Call timer panel (shown after script generated) -->
+          <div class="call-panel" id="call-panel" style="display:none">
+            <div class="timer-row">
+              <div class="timer-display">
+                <div class="timer-dot" id="timer-dot"></div>
+                <span id="timer-text">00:00</span>
+              </div>
+              <div class="timer-btns">
+                <button class="btn-call-start" id="timer-btn" onclick="toggleTimer()">Start Call</button>
+                <button class="btn-call-end" onclick="endCall()" style="display:none" id="end-btn">End Call</button>
+              </div>
+            </div>
+
+            <textarea class="notes-input" id="call-notes" placeholder="Notes during call... (auto-saved)"></textarea>
+
+            <div class="outcome-row">
+              <span class="outcome-label">Call Outcome:</span>
+              <button class="outcome-btn interested" onclick="logOutcome('interested')">Interested</button>
+              <button class="outcome-btn callback" onclick="logOutcome('callback')">Callback</button>
+              <button class="outcome-btn rejected" onclick="logOutcome('not interested')">Not Interested</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PROSPECTS TAB ── -->
+    <section class="tab-content" id="tab-prospects">
+      <div class="page-header">
+        <h1>Prospects</h1>
+        <p>Upload CSV or add prospects manually</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Upload CSV</h2></div>
+        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('csv-input').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p>Click to upload CSV file</p>
+          <span>Columns: name, company, role, industry, phone, email</span>
+          <input type="file" id="csv-input" accept=".csv" style="display:none" onchange="handleCSV(event)" />
+        </div>
+        <div id="csv-status" style="display:none" class="csv-status"></div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <div class="card-header">
+          <h2>Prospect List</h2>
+          <span class="badge" id="prospect-count">0 prospects</span>
+        </div>
+        <div class="table-wrap">
+          <table class="call-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Industry</th>
+                <th>Phone</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="prospect-tbody">
+              <tr><td colspan="6" class="empty-row">No prospects yet. Upload a CSV to get started.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OBJECTIONS TAB ── -->
+    <section class="tab-content" id="tab-objections">
+      <div class="page-header">
+        <h1>Objection Handler</h1>
+        <p>Real-time AI responses to prospect pushbacks</p>
+      </div>
+
+      <div class="objection-layout">
+        <div class="card">
+          <div class="card-header"><h2>Handle Objection</h2></div>
+          <div class="form-body">
+            <div class="form-group">
+              <label>What did the prospect say?</label>
+              <textarea id="obj-input" rows="3" placeholder='e.g. "We already have a solution for this" or "Send me an email, I am busy"'></textarea>
+            </div>
+            <div class="form-group">
+              <label>What are you selling? (context)</label>
+              <input type="text" id="obj-context" placeholder="AI automation tool for sales teams" />
+            </div>
+            <button class="btn-primary w-full" id="obj-btn" onclick="handleObjection()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              Get Response
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>AI Response</h2></div>
+          <div id="obj-result" class="obj-result">
+            <div class="script-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <p>Enter an objection to get an AI-powered response</p>
+            </div>
+          </div>
+
+          <!-- Saved objections history -->
+          <div id="obj-history" style="margin-top:1rem;display:none">
+            <div class="card-header" style="padding:0 0 0.75rem 0"><h2>Saved Responses</h2></div>
+            <div id="obj-history-list" class="obj-history-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
