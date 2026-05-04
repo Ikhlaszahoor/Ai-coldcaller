@@ -22,7 +22,7 @@ A full-stack AI cold calling assistant built with Node.js and Claude API. Genera
 
 **1. Clone the repo**
 ```bash
-git clone https://github.com/YOUR_USERNAME/ai-cold-caller.git
+git clone https://github.com/Ikhlaszahoor/ai-cold-caller.git
 cd ai-cold-caller
 ```
 
